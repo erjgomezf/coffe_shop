@@ -17,8 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from products.views import ProductListView, ProductFormView
+from django.http import HttpResponse
+
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("productos/", include("products.urls")),  # Incluir las URLs de la app products
+    path("listado", ProductListView.as_view(), name="product_list"),
+    path("agregar", ProductFormView.as_view(), name="add_product"),
 ]
