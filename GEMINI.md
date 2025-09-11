@@ -98,6 +98,8 @@ Esta sección contiene una lista detallada de comandos útiles para el día a d�
 *   **Para guardar los cambios en la shell:** `.save()`
 *   **Para borrar los cambios en la shell:** `.delete()`
 *   **Para salir de la shell:** ctrl+z
+*   **Para crear un superusuario:** `python3 manage.py createsuperuser`
+
 
 ### SQLite
 

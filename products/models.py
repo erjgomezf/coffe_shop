@@ -24,7 +24,7 @@ class Product(models.Model):
     )
     stock = models.IntegerField(verbose_name="Cantidad en Stock del Producto")
     image = models.ImageField(
-        upload_to="logos", verbose_name="Imagen del Producto", null=True, blank=True
+        upload_to="products/", verbose_name="Imagen del Producto", blank=True, null=True
     )
 
     def __str__(self):

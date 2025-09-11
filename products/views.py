@@ -9,7 +9,7 @@ class ProductListView(TemplateView):
     """
     Vista para mostrar la lista de productos.
     Muestra todos los productos disponibles en la tienda de café.
-    Uses the 'products/product_list.html' template.
+    Uses the 'products/list_products.html' template.
     Args:
     - TemplateView: Vista basada en plantillas de Django.
     Methods:
@@ -18,7 +18,7 @@ class ProductListView(TemplateView):
     - dict: Contexto actualizado con la lista de productos.
     """
 
-    template_name = "products/product_list.html"
+    template_name = "products/list_products.html"
 
     def get_context_data(self, **kwargs) -> dict:
         """
@@ -30,7 +30,7 @@ class ProductListView(TemplateView):
         - dict: Contexto actualizado con la lista de productos.
         """
         context = super().get_context_data(**kwargs)
-        context["product_list"] = Product.objects.all()
+        context["list_products"] = Product.objects.all()
         return context
 
 
@@ -47,9 +47,11 @@ class ProductFormView(FormView):
     - HttpResponseRedirect: Redirección a la lista de productos si el formulario es válido.
     """
 
-    template_name = "products/add_product.html"
-    form_class = ProductForm
-    success_url = reverse_lazy("add_product")
+    template_name = "products/add_product.html"  # Plantilla para agregar un producto
+    form_class = ProductForm  # Formulario para agregar un producto
+    success_url = reverse_lazy(
+        "list_products"
+    )  # Redirige a la lista de productos después de agregar uno nuevo
 
     def form_valid(self, form) -> None:
         """

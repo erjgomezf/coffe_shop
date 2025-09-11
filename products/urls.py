@@ -22,6 +22,6 @@ from django.http import HttpResponse
 
 
 urlpatterns = [
-    path("listado", ProductListView.as_view(), name="product_list"),
+    path("listado", ProductListView.as_view(), name="list_products"),
     path("agregar", ProductFormView.as_view(), name="add_product"),
 ]

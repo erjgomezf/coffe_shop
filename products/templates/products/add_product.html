@@ -1,8 +1,14 @@
-hola mundo
-<form
-  action="{% url "add_product" %}"
-  method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-  <button type="submit">Agregar Producto</button>
-</form>
+{% extends "base.html" %} {% block content %}
+
+<head>
+  <title>Agregar Producto</title>
+</head>
+<body>
+  <h1>Agregar Producto</h1>
+  <form action="{% url 'add_product' %}" method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Agregar Producto</button>
+  </form>
+</body>
+
+{% endblock content%}
