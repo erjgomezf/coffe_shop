@@ -7,6 +7,11 @@
     <title>{% block title %}Mi Tienda de Café{% endblock %}</title>
   </head>
   <body>
+    {% if user.is_authenticated %}
+    <p>Bienvenido, {{ user.username }}!</p>
+    {% else %}
+    <a href="{% url 'login' %}">Iniciar Sesión</a>
+    {% endif %}
     <header>
       <h1>Bienvenido a Mi Tienda de Café</h1>
       <nav>
