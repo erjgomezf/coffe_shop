@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+<h2
+  class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2 mt-4"
+>
+  <span>☕</span>Mi Pedido
+</h2>
+<p class="text-yellow-700 font-serif">
+  Aquí va el contenido específico de la página de mi pedido.
+  {{order.user.username }} {{order.order_date}}
+</p>
+{% endblock content%}

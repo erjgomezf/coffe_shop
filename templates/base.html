@@ -22,6 +22,16 @@
           </div>
           <div class="md:flex md:items-center md:gap-12">
             {% if user.is_authenticated %}
+
+            <li>
+              <a
+                class="text-gray-500 transition hover:text-gray-500/75"
+                href="{% url 'my_order' %}"
+              >
+                Mi pedido
+              </a>
+            </li>
+
             <p
               class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2"
             >
@@ -29,6 +39,7 @@
             </p>
             <form action="{% url 'logout' %}" method="post" class="inline">
               {% csrf_token %}
+
               <button
                 type="submit"
                 class="text-yellow-700 font-bold hover:underline focus:outline-none ml-4"
@@ -36,6 +47,7 @@
                 Cerrar Sesión
               </button>
             </form>
+
             {% else %}
             <a
               class="rounded-md bg-yellow-300 px-5 py-2.5 text-lg font-extrabold text-yellow-700 font-serif shadow-sm flex items-center gap-2 hover:bg-yellow-400 transition"
