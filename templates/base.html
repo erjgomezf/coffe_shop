@@ -6,32 +6,94 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>{% block title %}Mi Tienda de Café{% endblock %}</title>
   </head>
-  <body>
-    {% if user.is_authenticated %}
-    <p>Bienvenido, {{ user.username }}!</p>
-    {% else %}
-    <a href="{% url 'login' %}">Iniciar Sesión</a>
-    {% endif %}
-    <header>
-      <h1>Bienvenido a Mi Tienda de Café</h1>
-      <nav>
-        <ul>
-          <li><a href="{% url 'list_products' %}">Lista de Productos</a></li>
-          <li><a href="{% url 'add_product' %}">Agregar Producto</a></li>
-        </ul>
-      </nav>
+  <body class="bg-gray-50">
+    <header class="bg-white">
+      <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex-1 md:flex md:items-center md:gap-12">
+            <a
+              class="block text-yellow-700 font-extrabold font-serif text-2xl flex items-center gap-2"
+              href="#"
+            >
+              <span>☕</span>
+              <span class="sr-only">Home</span>
+              Mi Tienda de Café
+            </a>
+          </div>
+          <div class="md:flex md:items-center md:gap-12">
+            {% if user.is_authenticated %}
+            <p
+              class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2"
+            >
+              <span>☕</span>Bienvenido, {{ user.username }}!
+            </p>
+            <form action="{% url 'logout' %}" method="post" class="inline">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="text-yellow-700 font-bold hover:underline focus:outline-none ml-4"
+              >
+                Cerrar Sesión
+              </button>
+            </form>
+            {% else %}
+            <a
+              class="rounded-md bg-yellow-300 px-5 py-2.5 text-lg font-extrabold text-yellow-700 font-serif shadow-sm flex items-center gap-2 hover:bg-yellow-400 transition"
+              href="{% url 'login' %}"
+              aria-label="Iniciar Sesión"
+            >
+              <span>🔑</span>Iniciar Sesión
+            </a>
+            <div class="hidden sm:flex">
+              <a
+                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                href="{% url 'register' %}"
+                aria-label="Registrarse"
+              >
+                Registrarse
+              </a>
+            </div>
+            {% endif %}
+            <div class="block md:hidden">
+              <button
+                class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="size-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
     <div class="container mx-auto px-4">
       <main>
         {% block content %}
-        <h2>Contenido Principal</h2>
-        <p>Aquí va el contenido específico de cada página.</p>
+        <h2
+          class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2 mt-4"
+        >
+          <span>☕</span>Contenido Principal
+        </h2>
+        <p class="text-yellow-700 font-serif">
+          Aquí va el contenido específico de cada página.
+        </p>
         {% endblock %}
       </main>
     </div>
-
     <footer>
-      <p>&copy; 2023 Mi Tienda de Café</p>
+      <p>&copy; 2025 Mi Tienda de Café</p>
     </footer>
   </body>
 </html>

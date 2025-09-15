@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_tailwind",
-    "products",
-    "users",
+    "crispy_forms",  # Para formularios mejorados
+    "crispy_tailwind",  # Para usar Tailwind CSS con crispy forms
+    "products",  # Nuestra app de productos
+    "users",  # Nuestra app de usuarios
+    "orders",  # Nuestra app de órdenes
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-es"
 
 TIME_ZONE = "UTC"
 
@@ -126,8 +127,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"  # Permitir solo Tailwind CSS
 
-CRISPY_TEMPLATE_PACK = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"  # Usar Tailwind CSS para crispy forms
 
 LOGIN_REDIRECT_URL = "list_products"  # Redirigir después de iniciar sesión
+
+LOGOUT_REDIRECT_URL = "login"  # Redirigir después de cerrar sesión
