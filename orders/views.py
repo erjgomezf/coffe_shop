@@ -9,4 +9,6 @@ class MyOrderView(DetailView):
     context_object_name = "order"
 
     def get_object(self, queryset=None):
-        return Order.objects.filter(is_active=True).first()
+        return Order.objects.filter(
+            is_active=True
+        ).first()  # Simula obtener el pedido del usuario actual

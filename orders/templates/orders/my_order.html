@@ -1,11 +1,76 @@
-{% extends "base.html" %} {% block content %}
-<h2
-  class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2 mt-4"
->
-  <span>☕</span>Mi Pedido
-</h2>
-<p class="text-yellow-700 font-serif">
-  Aquí va el contenido específico de la página de mi pedido.
-  {{order.user.username }} {{order.order_date}}
-</p>
-{% endblock content%}
+{% extends "base.html" %} 
+{% load multiply_filters %} 
+{% block content %}
+<div class="flex justify-between items-start mt-8 mb-4">
+  <!-- Izquierda: Usuario y fecha -->
+  <div>
+    <div class="text-lg font-bold text-gray-800">Detalles de tu orden</div>
+    <div class="text-xs text-gray-500 mt-1">
+      Gracias por tu compra ☕
+    </div>
+  </div>
+  <!-- Derecha: Detalles de la orden -->
+  <div class="text-right">
+    <div class="text-lg font-semibold text-yellow-700">
+        {{ order.user.username }}
+    </div>
+    <div class="text-xs text-gray-500"> {{ order.order_date|date:"d M Y" }}</div>
+  </div>
+</div>
+</div>
+
+<!-- Estado de la orden  -->
+<div class="flex flex-col items-center mb-6">
+  <div class="text-base font-semibold text-gray-700">Orden #{{ order.id }}</div>
+  <div class="mt-2">
+    <span class="inline-block px-4 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold tracking-wide border border-green-300">
+      Activo
+    </span>
+  </div>
+</div>
+
+<!-- Tabla de productos -->
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+    <thead>
+      <tr class="bg-gray-100 text-gray-700 text-sm">
+        <th class="py-2 px-4 text-left">Cantidad</th>
+        <th class="py-2 px-4 text-left">Artículo</th>
+        <th class="py-2 px-4 text-left">Precio unitario</th>
+        <th class="py-2 px-4 text-left">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product_order in order.orderproduct_set.all %}
+      <tr class="border-b">
+        <td class="py-2 px-4">{{ product_order.quantity }}</td>
+        <td class="py-2 px-4">{{ product_order.product.name }}</td>
+        <td class="py-2 px-4">${{ product_order.product.price }}</td>
+        <td class="py-2 px-4">${{ product_order.product.price|multiply:product_order.quantity }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="py-2 px-4 text-center text-gray-400">No hay productos en el pedido.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Total de la orden-->
+<hr class="my-6 border-t-2 border-gray-200" />
+<div class="flex justify-end">
+  <div class="text-xl font-bold text-gray-800 bg-yellow-100 rounded-lg px-6 py-2 shadow">
+    Total: $
+    {% with total=0 %}
+      {% for product_order in order.orderproduct_set.all %}
+        {% with subtotal=product_order.product.price|multiply:product_order.quantity %}
+          {% if forloop.first %}{% widthratio subtotal 1 1 %}{% else %}+{% widthratio subtotal 1 1 %}{% endif %}
+        {% endwith %}
+      {% endfor %}
+      {{ order.get_total|default_if_none:"0.00" }}
+    {% endwith %}
+  </div>
+</div>
+
+{% endblock content %}
