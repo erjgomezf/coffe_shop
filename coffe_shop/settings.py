@@ -134,3 +134,5 @@ CRISPY_TEMPLATE_PACK = "tailwind"  # Usar Tailwind CSS para crispy forms
 LOGIN_REDIRECT_URL = "list_products"  # Redirigir después de iniciar sesión
 
 LOGOUT_REDIRECT_URL = "login"  # Redirigir después de cerrar sesión
+
+LOGIN_URL = "login"  # URL de inicio de sesión

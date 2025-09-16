@@ -12,15 +12,24 @@ class Order(models.Model):
     - is_active: Indica si la orden está activa.
     - order_date: Fecha y hora en que se realizó la orden.
     Métodos:
+    - get_total: Calcula el total de la orden sumando los precios de los productos en la orden.
     - __str__: Devuelve una representación en cadena de la orden.
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     order_date = models.DateTimeField(auto_now_add=True)
+    
+    def get_total(self):
+        total = 0
+        for order_product in self.orderproduct_set.all():
+            total += order_product.product.price * order_product.quantity
+        return total
 
     def __str__(self):
         return f"Order {self.id} by {self.user}"
+    
+    
 
 
 class OrderProduct(models.Model):
