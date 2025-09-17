@@ -4,5 +4,5 @@ from .views import MyOrderView, CreateOrderProductView
 
 urlpatterns = [
     path("mi-orden/", MyOrderView.as_view(), name="my_order"),
-    path("agregar-producto/", CreateOrderProductView.as_view(), name="add_product"),
+    path("crear-orden-producto/", CreateOrderProductView.as_view(), name="create_order_product"),
 ]

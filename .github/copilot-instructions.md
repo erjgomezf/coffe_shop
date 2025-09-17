@@ -69,6 +69,93 @@ Nuestra colaboración seguirá un ciclo de desarrollo profesional y ágil:
 
 ---
 
+## 5. Metodología de Respuesta y Razonamiento
+
+Esta sección define cómo estructuraremos cada intervención para maximizar claridad, trazabilidad y valor práctico.
+
+### 5.1. Preparación y comprensión
+
+- Leer referencias relevantes en el repo (archivos afectados, configuración, dependencias).
+- Leer el historial de conversación resumido y el estado del workspace/terminal.
+- Extraer requerimientos explícitos e implícitos. Si falta algo crítico, inferir 1-2 supuestos razonables y seguir; preguntar sólo si es bloqueante.
+
+### 5.2. Planificación y TODOs
+
+- Convertir los requerimientos en un listado de TODOs granular.
+- Reglas de uso del plan:
+  - Siempre crear el plan para tareas no triviales (múltiples pasos, cambios en varios archivos, o ambigüedad).
+  - Mantener exactamente un TODO en estado in-progress a la vez.
+  - Marcar el TODO como completed inmediatamente al finalizarlo y avanzar al siguiente.
+  - No dejar TODOs sin estado al cerrar la intervención.
+
+### 5.3. Diseño rápido y contrato
+
+- Especificar un mini-contrato (2–4 bullets): entradas, salidas, criterios de éxito y errores esperables.
+- Listar 3–5 casos borde a considerar.
+
+### 5.4. Ejecución iterativa con herramientas
+
+- Antes de un batch de acciones, incluir un breve preámbulo (por qué/qué/resultado esperado).
+- Leer archivos en bloques significativos (evitar lecturas muy fragmentadas).
+- Paralelizar sólo operaciones de lectura independientes; no paralelizar ediciones dependientes.
+- Tras 3–5 acciones o al crear/editar >3 archivos, reportar progreso conciso (qué se hizo y qué sigue).
+
+### 5.5. Validación y calidad (quality gates)
+
+- Verificaciones rápidas: Build, Lint/Typecheck, Tests, Smoke test mínimo, con estado PASS/FAIL por cada una.
+- Si hay fallos, intentar hasta 3 reparaciones puntuales. Si persisten, explicar la causa raíz y opciones.
+
+### 5.6. Respuesta final paso a paso
+
+Estructurar la salida con secciones breves y escaneables:
+
+- Preambulo de 1 línea (objetivo + siguiente acción concreta).
+- Acciones tomadas (y por qué).
+- Archivos cambiados (1 línea de propósito por archivo editado/creado).
+- Cómo probar (comandos opcionales en bloque, uno por línea; marcar como opcional si aplica).
+- Verificaciones rápidas (quality gates) con PASS/FAIL.
+- Requisitos cubiertos (Done/Deferred + motivo breve).
+- Notas y próximos pasos (mejoras seguras aplicadas y sugerencias futuras).
+- Cierre: resumen de lo logrado y cómo se verificó.
+
+### 5.7. Modos de respuesta
+
+- Ligero: saludos, preguntas directas, cambios triviales (sin plan; respuesta breve).
+- Completo: multi-paso, cambios en código/archivos, o ambigüedad (usar TODOs, secciones y validaciones).
+
+### 5.8. Reglas operativas clave
+
+- Idioma: español; tono cercano, seguro y conciso.
+- Seguridad: no exfiltrar secretos ni hacer llamadas de red innecesarias.
+- Plantillas Django: envolver `{{ ... }}` dentro de etiquetas HTML para evitar conflictos con formateadores.
+- No inventar rutas/APIs; verificar con lecturas rápidas antes de editar.
+- Mantener cambios mínimos: no reformatear lo no relacionado.
+- Para notebooks: usar exclusivamente las herramientas dedicadas.
+
+## 6. Plantilla de respuesta sugerida
+
+Usa este esquema cuando la tarea sea no trivial:
+
+1. Preambulo: “Haré X; primero Y para Z”.
+2. Plan/TODOs: lista corta con estados (sólo si aplica).
+3. Acciones tomadas.
+4. Archivos cambiados (archivo – propósito breve).
+5. Cómo probar (opcional; comandos en bloque shell, uno por línea).
+6. Verificaciones rápidas (Build/Lint/Tests/Smoke con PASS/FAIL).
+7. Requisitos cubiertos (Done/Deferred + razón breve).
+8. Notas y próximos pasos.
+9. Cierre (1–2 líneas: qué cambió y cómo se validó).
+
+Tip: Mantén cada sección en 1–4 bullets para legibilidad.
+
+## 7. Evolución continua del proceso
+
+- Revisa y ajusta esta metodología con base en fricciones reales encontradas en el flujo.
+- Propón mejoras pequeñas y seguras en cada intervención (tests mínimos, tipos, docstrings, wiring).
+- Para cambios mayores, anótalos en “próximos pasos” con estimación y dependencias.
+
+> Última actualización: 2025-09-17
+
 ---
 
 ## Apéndice A: Guía Rápida de Comandos

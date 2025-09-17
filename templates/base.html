@@ -7,39 +7,41 @@
     <title>{% block title %}Mi Tienda de Café{% endblock %}</title>
   </head>
   <body class="bg-gray-50">
-    <header class="bg-white">
+    <header class="bg-white sticky top-0 z-40">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-          <div class="flex-1 md:flex md:items-center md:gap-12">
+          <div class="flex-1 flex items-center gap-4">
             <a
               class="block text-yellow-700 font-extrabold font-serif text-2xl flex items-center gap-2"
-              href="#"
+              href="{% url 'list_products' %}"
+              aria-label="Home"
             >
               <span>☕</span>
               <span class="sr-only">Home</span>
               Mi Tienda de Café
             </a>
           </div>
-          <div class="md:flex md:items-center md:gap-12">
+          <!-- Desktop menu -->
+          <nav class="hidden md:flex md:items-center md:gap-8">
             {% if user.is_authenticated %}
-
-            <li>
-              <a
-                class="text-gray-500 transition hover:text-gray-500/75"
-                href="{% url 'my_order' %}"
-              >
-                Mi pedido
-              </a>
-            </li>
-
-            <p
-              class="text-2xl font-extrabold text-yellow-700 font-serif flex items-center gap-2"
+            <a
+              class="text-gray-500 transition hover:text-gray-500/75"
+              href="{% url 'my_order' %}"
+              >Mi pedido</a
             >
-              <span>☕</span>Bienvenido, {{ user.username }}!
-            </p>
+            <a
+              class="rounded-md bg-yellow-400 px-4 py-2 text-sm font-bold text-white shadow hover:bg-yellow-500 transition flex items-center gap-1"
+              href="{% url 'add_product' %}"
+              aria-label="Agregar Producto"
+              ><span>➕</span>Agregar Producto</a
+            >
+            <span
+              class="text-yellow-700 font-extrabold font-serif flex items-center gap-2 ml-2"
+              ><span>☕</span>Bienvenido,
+              <span class="hidden sm:inline">{{ user.username }}</span>!</span
+            >
             <form action="{% url 'logout' %}" method="post" class="inline">
               {% csrf_token %}
-
               <button
                 type="submit"
                 class="text-yellow-700 font-bold hover:underline focus:outline-none ml-4"
@@ -47,50 +49,96 @@
                 Cerrar Sesión
               </button>
             </form>
-
             {% else %}
             <a
               class="rounded-md bg-yellow-300 px-5 py-2.5 text-lg font-extrabold text-yellow-700 font-serif shadow-sm flex items-center gap-2 hover:bg-yellow-400 transition"
               href="{% url 'login' %}"
               aria-label="Iniciar Sesión"
+              ><span>🔑</span>Iniciar Sesión</a
             >
-              <span>🔑</span>Iniciar Sesión
-            </a>
-            <div class="hidden sm:flex">
-              <a
-                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                href="{% url 'register' %}"
-                aria-label="Registrarse"
-              >
-                Registrarse
-              </a>
-            </div>
+            <a
+              class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+              href="{% url 'register' %}"
+              aria-label="Registrarse"
+              >Registrarse</a
+            >
             {% endif %}
-            <div class="block md:hidden">
-              <button
-                class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+          </nav>
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-button"
+              class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 focus:outline-none"
+              aria-label="Abrir menú"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="size-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            </div>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
+      <!-- Mobile menu (hidden by default) -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden bg-white border-t border-yellow-100 px-4 py-4 shadow-lg"
+      >
+        <nav class="flex flex-col gap-4">
+          {% if user.is_authenticated %}
+          <a class="text-gray-700 font-bold" href="{% url 'my_order' %}"
+            >Mi pedido</a
+          >
+          <a class="text-yellow-700 font-bold" href="{% url 'add_product' %}"
+            >➕ Agregar Producto</a
+          >
+          <span
+            class="text-yellow-700 font-extrabold font-serif flex items-center gap-2"
+            ><span>☕</span>{{ user.username }}</span
+          >
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="text-yellow-700 font-bold hover:underline focus:outline-none"
+            >
+              Cerrar Sesión
+            </button>
+          </form>
+          {% else %}
+          <a class="text-yellow-700 font-bold" href="{% url 'login' %}"
+            >🔑 Iniciar Sesión</a
+          >
+          <a class="text-teal-600 font-bold" href="{% url 'register' %}"
+            >Registrarse</a
+          >
+          {% endif %}
+        </nav>
+      </div>
     </header>
+
     <div class="container mx-auto px-4">
+      {% if messages %}
+      <div class="mt-4 space-y-2">
+        {% for message in messages %}
+        <div
+          class="px-4 py-3 rounded-lg shadow text-sm {% if message.tags == 'success' %} bg-green-50 text-green-800 border border-green-200 {% elif message.tags == 'error' %} bg-red-50 text-red-800 border border-red-200 {% else %} bg-yellow-50 text-yellow-800 border border-yellow-200 {% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
       <main>
         {% block content %}
         <h2
@@ -104,7 +152,19 @@
         {% endblock %}
       </main>
     </div>
-    <footer>
+
+    <script>
+      // Menú móvil toggle
+      const menuBtn = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      }
+    </script>
+
+    <footer class="mt-8 py-6 text-center text-sm text-gray-500">
       <p>&copy; 2025 Mi Tienda de Café</p>
     </footer>
   </body>

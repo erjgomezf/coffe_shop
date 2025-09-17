@@ -1,14 +1,128 @@
 {% extends "base.html" %} {% block content %}
 
-<head>
-  <title>Agregar Producto</title>
-</head>
-<body>
-  <h1>Agregar Producto</h1>
-  <form action="{% url 'add_product' %}" method="post">
-    {% csrf_token %} {{ form.as_p }}
-    <button type="submit">Agregar Producto</button>
-  </form>
-</body>
+<div
+  class="max-w-lg mx-auto mt-10 bg-white rounded-xl shadow-2xl p-10 border border-yellow-100"
+>
+  <h1
+    class="text-2xl font-extrabold text-yellow-700 font-serif mb-8 flex items-center gap-2"
+  >
+    <span>➕</span>Agregar Producto
+  </h1>
+  <form
+    action="{% url 'add_product' %}"
+    method="post"
+    enctype="multipart/form-data"
+    class="space-y-6"
+  >
+    {% csrf_token %}
 
-{% endblock content%}
+    <div>
+      <label
+        for="{{ form.name.id_for_label }}"
+        class="block mb-1 text-sm font-semibold text-gray-700"
+        >Nombre del Producto</label
+      >
+      {{ form.name }} {% for error in form.name.errors %}
+      <span class="text-red-500 text-xs">{{ error }}</span>
+      {% endfor %} {% if form.name.help_text %}
+      <p class="text-xs mt-1 text-gray-500">{{ form.name.help_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="flex gap-4">
+      <div class="flex-1">
+        <label
+          for="{{ form.stock.id_for_label }}"
+          class="block mb-1 text-sm font-semibold text-gray-700"
+          >Cantidad en stock</label
+        >
+        {{ form.stock }} {% for error in form.stock.errors %}
+        <span class="text-red-500 text-xs">{{ error }}</span>
+        {% endfor %} {% if form.stock.help_text %}
+        <p class="text-xs mt-1 text-gray-500">{{ form.stock.help_text }}</p>
+        {% endif %}
+      </div>
+      <div class="flex-1">
+        <label
+          for="{{ form.price.id_for_label }}"
+          class="block mb-1 text-sm font-semibold text-gray-700"
+          >Precio</label
+        >
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            >$</span
+          >
+          {{ form.price }}
+        </div>
+        {% for error in form.price.errors %}
+        <span class="text-red-500 text-xs">{{ error }}</span>
+        {% endfor %} {% if form.price.help_text %}
+        <p class="text-xs mt-1 text-gray-500">{{ form.price.help_text }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div>
+      <label
+        for="{{ form.description.id_for_label }}"
+        class="block mb-1 text-sm font-semibold text-gray-700"
+        >Descripción del Producto</label
+      >
+      {{ form.description }} {% for error in form.description.errors %}
+      <span class="text-red-500 text-xs">{{ error }}</span>
+      {% endfor %} {% if form.description.help_text %}
+      <p class="text-xs mt-1 text-gray-500">{{ form.description.help_text }}</p>
+      {% endif %}
+    </div>
+
+    <div>
+      <label
+        for="{{ form.image.id_for_label }}"
+        class="block mb-1 text-sm font-semibold text-gray-700"
+        >Imagen del Producto</label
+      >
+      {{ form.image }} {% for error in form.image.errors %}
+      <span class="text-red-500 text-xs">{{ error }}</span>
+      {% endfor %} {% if form.image.help_text %}
+      <p class="text-xs mt-1 text-gray-500">{{ form.image.help_text }}</p>
+      {% endif %}
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
+    >
+      Agregar Producto
+    </button>
+  </form>
+</div>
+
+<style>
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  select,
+  textarea {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 1rem;
+    background-color: #f9fafb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    margin-top: 2px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input[type="number"] {
+    padding-left: 1.75rem;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #fbbf24;
+    box-shadow: 0 0 0 2px #fde68a;
+    outline: none;
+  }
+</style>
+
+{% endblock content %}

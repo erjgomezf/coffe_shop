@@ -17,8 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from products.views import ProductListView, ProductFormView
 from django.http import HttpResponse
+from products.views import ProductListView, ProductFormView
 
 
 urlpatterns = [
