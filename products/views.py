@@ -1,71 +1,66 @@
-from django.views.generic import TemplateView, FormView
+from django.views.generic import FormView, ListView
 from products.forms import ProductForm
 from products.models import Product
 from django.urls import reverse_lazy
+from rest_framework.views import APIView
+from .serializers import ProductSerializer
+from rest_framework.response import Response
 
 
 # Create your views here.
-class ProductListView(TemplateView):
-    """
-    Vista para mostrar la lista de productos.
-    Muestra todos los productos disponibles en la tienda de café.
-    Uses the 'products/list_products.html' template.
-    Args:
-    - TemplateView: Vista basada en plantillas de Django.
-    Methods:
-    - get_context_data: Agrega la lista de productos al contexto de la plantilla.
-    Returns:
-    - dict: Contexto actualizado con la lista de productos.
-    """
-
-    template_name = "products/list_products.html"
-
-    def get_context_data(self, **kwargs) -> dict:
-        """
-        Agrega la lista de productos al contexto de la plantilla.
-        Retorna el contexto actualizado.
-        Args:
-        - **kwargs: Argumentos adicionales.
-        Returns:
-        - dict: Contexto actualizado con la lista de productos.
-        """
-        context = super().get_context_data(**kwargs)
-        context["list_products"] = Product.objects.all()
-        return context
-
-
 class ProductFormView(FormView):
-    """
+    '''
     Vista para agregar un nuevo producto.
-    Permite a los administradores agregar nuevos productos a la tienda de café.
-    Uses the 'products/add_product.html' template and ProductForm.
-    Args:
-    - FormView: Vista basada en formularios de Django.
-    Attributes:
-    - template_name: Nombre de la plantilla HTML.
-    - form_class: Clase del formulario para agregar productos.
-    - success_url: URL a la que redirige después de agregar un producto.
-    Methods:
-    - form_valid: Guarda el producto si el formulario es válido y redirige a la lista de productos.
-    Returns:
-    - HttpResponseRedirect: Redirección a la lista de productos.
-    Usage in URLconf:
-        path('add-product/', ProductFormView.as_view(), name='add_product')
-    """
-
-    template_name = "products/add_product.html"  # Plantilla para agregar un producto
-    form_class = ProductForm  # Formulario para agregar un producto
-    success_url = reverse_lazy(
-        "list_products"
-    )  # Redirige a la lista de productos después de agregar uno nuevo
-
-    def form_valid(self, form) -> None:
-        """
-        Guarda el producto si el formulario es válido y redirige a la lista de productos.
-        Args:
-        - form: Instancia del formulario válido.
-        Returns:
-        - HttpResponseRedirect: Redirección a la lista de productos.
-        """
+    Permite a los usuarios agregar nuevos productos a la tienda.
+    Atributos:
+        template_name: La plantilla HTML utilizada para renderizar el formulario.
+        form_class: El formulario utilizado para agregar productos.
+        success_url: La URL a la que se redirige después de agregar el producto.
+    Método:
+        form_valid: Sobrescribe el método para manejar la lógica de agregar el producto.
+    Uso en URLconf:
+        path('agregar/', ProductFormView.as_view(), name='add_product')
+    '''
+    template_name = "products/add_product.html"
+    form_class = ProductForm
+    success_url = reverse_lazy("list_products")
+    
+    def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+class ProductListView(ListView):
+    '''
+    Vista para listar productos.
+    Muestra una lista de productos disponibles en la tienda.
+    Atributos:
+        model: El modelo Product que representa los productos.
+        template_name: La plantilla HTML utilizada para renderizar la vista.
+        context_object_name: El nombre del contexto para acceder a la lista de productos en la plantilla.
+    Uso en URLconf:
+        path('', ProductListView.as_view(), name='list_products')
+    '''
+    model = Product
+    template_name = "products/list_products.html"
+    context_object_name = "products"
+
+class ProductListAPI(APIView):
+    '''
+    API para listar productos.
+    Proporciona una API RESTful para obtener una lista de productos en formato JSON.
+    Atributos:
+        authentication_classes: Clases de autenticación utilizadas (vacío para acceso público).
+        permission_classes: Clases de permiso utilizadas (vacío para acceso público).
+    Método:
+        get: Maneja la solicitud GET para obtener la lista de productos.
+    Uso en URLconf:
+        path('api/', ProductListAPI.as_view(), name='list_products_api')
+    '''
+    authentication_classes = []
+    permission_classes = []
+    
+    
+    def get(self, request) -> Response:    
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)

@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.http import HttpResponse
-from products.views import ProductListView, ProductFormView
+from django.urls import path    # Importa la función path para definir rutas de URL
+from products.views import ProductListView, ProductFormView  # Importa las vistas de productos
+from products.views import ProductListAPI   # Importa la vista API para listar productos
 
 
 urlpatterns = [
-    path("listado", ProductListView.as_view(), name="list_products"),
+    path("", ProductListView.as_view(), name="list_products"),
+    path('api/', ProductListAPI.as_view(), name='list_products_api'),
     path("agregar", ProductFormView.as_view(), name="add_product"),
 ]
