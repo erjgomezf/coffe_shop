@@ -50,9 +50,18 @@ class CreateOrderProductView(LoginRequiredMixin, CreateView):
     form_class = OrderProductForm
     success_url = reverse_lazy("my_order")
 
-    
-    
-    def form_valid(self, form):
+    @transaction.atomic # Asegura que todas las operaciones de la base de datos sean atómicas    
+    def form_valid(self, form) -> redirect:
+        '''
+        Maneja la lógica de agregar un producto a la orden.
+        Si el formulario es válido, obtiene o crea el pedido activo del usuario,
+        asigna el pedido y la cantidad al producto del formulario, guarda el producto
+        en la orden, muestra un mensaje de éxito y redirige a la vista del pedido.  
+        Parámetros:
+            form: El formulario que ha sido validado.
+        Retorna:
+            La respuesta de la superclase form_valid, que maneja la redirección.
+        '''
         order, _ = Order.objects.get_or_create(is_active=True, user=self.request.user)
         form.instance.order = order
         form.instance.quantity = 1
