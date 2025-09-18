@@ -1,9 +1,9 @@
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView # Vistas genéricas basadas en clases
 from django.contrib.auth.mixins import LoginRequiredMixin   # Asegura que el usuario esté autenticado
 from django.urls import reverse_lazy    # Para redirecciones basadas en nombres de URL
-from django.shortcuts import redirect
-from django.contrib import messages
-from django.db import transaction
+from django.shortcuts import redirect   # Para redirecciones
+from django.contrib import messages # Para mensajes flash
+from django.db import transaction   # Para manejar transacciones atómicas
 from .models import Order, OrderProduct
 from .forms import OrderProductForm
 from products.models import Product
