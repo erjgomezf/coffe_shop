@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",  # Para formularios mejorados
     "crispy_tailwind",  # Para usar Tailwind CSS con crispy forms
+    "rest_framework",  # Django REST framework
     "products",  # Nuestra app de productos
     "users",  # Nuestra app de usuarios
     "orders",  # Nuestra app de órdenes
@@ -136,3 +137,11 @@ LOGIN_REDIRECT_URL = "list_products"  # Redirigir después de iniciar sesión
 LOGOUT_REDIRECT_URL = "login"  # Redirigir después de cerrar sesión
 
 LOGIN_URL = "login"  # URL de inicio de sesión
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

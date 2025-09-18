@@ -81,7 +81,37 @@
         class="block mb-1 text-sm font-semibold text-gray-700"
         >Imagen del Producto</label
       >
-      {{ form.image }} {% for error in form.image.errors %}
+      <div class="relative">
+        <input
+          id="file-upload"
+          name="image"
+          type="file"
+          class="sr-only"
+          onchange="document.getElementById('file-upload-label').innerText = this.files[0]?.name || 'Seleccionar archivo'"
+        />
+        <label
+          for="file-upload"
+          id="file-upload-label"
+          class="cursor-pointer flex items-center justify-center bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold py-2 px-4 rounded-lg shadow transition duration-200 border border-yellow-300 w-full text-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2 text-yellow-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"
+            />
+          </svg>
+          Seleccionar archivo
+        </label>
+      </div>
+      {% for error in form.image.errors %}
       <span class="text-red-500 text-xs">{{ error }}</span>
       {% endfor %} {% if form.image.help_text %}
       <p class="text-xs mt-1 text-gray-500">{{ form.image.help_text }}</p>
@@ -100,7 +130,6 @@
 <style>
   input[type="text"],
   input[type="number"],
-  input[type="file"],
   select,
   textarea {
     border-radius: 0.5rem;
@@ -111,6 +140,17 @@
     margin-top: 2px;
     width: 100%;
     transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   input[type="number"] {
     padding-left: 1.75rem;

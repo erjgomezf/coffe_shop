@@ -37,14 +37,20 @@ class ProductListView(TemplateView):
 class ProductFormView(FormView):
     """
     Vista para agregar un nuevo producto.
-    Muestra un formulario para agregar un nuevo producto a la tienda de café.
-    Uses the 'products/add_product.html' template and ProductForm form class.
+    Permite a los administradores agregar nuevos productos a la tienda de café.
+    Uses the 'products/add_product.html' template and ProductForm.
     Args:
     - FormView: Vista basada en formularios de Django.
+    Attributes:
+    - template_name: Nombre de la plantilla HTML.
+    - form_class: Clase del formulario para agregar productos.
+    - success_url: URL a la que redirige después de agregar un producto.
     Methods:
     - form_valid: Guarda el producto si el formulario es válido y redirige a la lista de productos.
     Returns:
-    - HttpResponseRedirect: Redirección a la lista de productos si el formulario es válido.
+    - HttpResponseRedirect: Redirección a la lista de productos.
+    Usage in URLconf:
+        path('add-product/', ProductFormView.as_view(), name='add_product')
     """
 
     template_name = "products/add_product.html"  # Plantilla para agregar un producto
