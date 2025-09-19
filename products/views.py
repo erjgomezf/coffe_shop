@@ -1,10 +1,10 @@
-from django.views.generic import FormView, ListView
-from products.forms import ProductForm
-from products.models import Product
-from django.urls import reverse_lazy
-from rest_framework.views import APIView
-from .serializers import ProductSerializer
-from rest_framework.response import Response
+from django.views.generic import FormView, ListView # Vistas genéricas basadas en clases
+from django.urls import reverse_lazy    # Para redirecciones basadas en nombres de URL
+from rest_framework.views import APIView    # Vista base para APIs
+from rest_framework.response import Response    # Respuesta para APIs
+from products.forms import ProductForm  # Formulario para agregar productos
+from products.models import Product # Modelo de Producto
+from .serializers import ProductSerializer  # Serializador para el modelo Product
 
 
 # Create your views here.

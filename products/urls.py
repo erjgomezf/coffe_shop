@@ -22,6 +22,6 @@ from products.views import ProductListAPI   # Importa la vista API para listar p
 
 urlpatterns = [
     path("", ProductListView.as_view(), name="list_products"),
-    path('api/', ProductListAPI.as_view(), name='list_products_api'),
+    path("api/", ProductListAPI.as_view(), name="list_products_api"),
     path("agregar", ProductFormView.as_view(), name="add_product"),
 ]

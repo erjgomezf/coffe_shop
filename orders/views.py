@@ -4,9 +4,13 @@ from django.urls import reverse_lazy    # Para redirecciones basadas en nombres 
 from django.shortcuts import redirect   # Para redirecciones
 from django.contrib import messages # Para mensajes flash
 from django.db import transaction   # Para manejar transacciones atómicas
-from .models import Order, OrderProduct
-from .forms import OrderProductForm
-from products.models import Product
+from rest_framework.views import APIView    # Vista base para APIs
+from rest_framework.response import Response    # Respuesta para APIs
+from .models import Order, OrderProduct # Modelos de Orden y Producto en la Orden
+from .forms import OrderProductForm # Formulario para agregar productos a la orden
+from products.models import Product # Modelo de Producto
+from .serializers import OrderSerializer, OrderProductSerializer  # Serializadores para los modelos Order y OrderProduct
+
 
 
 # Create your views here.
@@ -68,3 +72,25 @@ class CreateOrderProductView(LoginRequiredMixin, CreateView):
         form.save()
         messages.success(self.request, "Producto agregado a la orden.")
         return super().form_valid(form)
+    
+class OrderProductAPI(APIView):
+    '''
+    API para agregar un producto a la orden del usuario.
+    Proporciona una API RESTful para que los usuarios autenticados agreguen productos a su orden activa.
+    Atributos:
+        authentication_classes: Clases de autenticación utilizadas (TokenAuthentication).
+        permission_classes: Clases de permiso utilizadas (IsAuthenticated).
+    Método:
+        post: Maneja la solicitud POST para agregar un producto a la orden.
+    Uso en URLconf:
+        path('api/add-to-order/', OrderProductAPI.as_view(), name='add_to_order_api')
+    '''
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request) -> Response:
+        serializer = OrderProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
