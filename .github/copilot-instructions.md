@@ -192,6 +192,8 @@ _Esta sección es tu "chuleta" personal para memorizar y acceder rápidamente a 
 - **Aplicar migraciones:** `python3 manage.py migrate`
 - **Crear un superusuario:** `python3 manage.py createsuperuser`
 - **Shell de Django:** `python3 manage.py shell`
+- **Libreria que actua como conectos de Django con el entorno virual de PostgreSQL:** `pip install psycopg2-binary`
+- **Libreria que se utiliza para ocultar la informancion sensible del proyecto:** `pip install python-dotenv`
 
 ### Testing
 

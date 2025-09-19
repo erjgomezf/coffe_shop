@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from environ import Env # Importa la librería environ para manejar variables de entorno
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env() # Inicializa la lectura de variables de entorno
+Env.read_env(os.path.join(BASE_DIR, '.env')) # Lee el archivo .env
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -81,12 +84,12 @@ WSGI_APPLICATION = "coffe_shop.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "coffe_shop",
-        "USER": "postgres",
-        "PASSWORD": "Postgres",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "ENGINE": env.str('DJANGO_DB_ENGINE'),
+        "NAME": env.str('DJANGO_DB_NAME'),
+        "USER": env.str('DJANGO_DB_USER'),
+        "PASSWORD": env.str('DJANGO_DB_PASSWORD'),
+        "HOST": env.str('DJANGO_DB_HOST'),
+        "PORT": env.int('DJANGO_DB_PORT'),
     }
 }
 
