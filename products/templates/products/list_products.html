@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% block content %}
 
 <h1
-  class="text-3xl font-extrabold text-yellow-700 font-serif mb-8 text-center flex items-center gap-2 justify-center"
+  class="catalog-title text-3xl font-extrabold text-yellow-700 font-serif mb-8 text-center flex items-center gap-2 justify-center"
 >
   <span>🛒</span> Catálogo de productos
 </h1>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-  {% for product in products %}
+  {% for product in product_list %}
   <div
     class="bg-white rounded-xl shadow-lg border border-yellow-100 flex flex-col overflow-hidden hover:shadow-2xl transition duration-200"
   >
@@ -39,7 +39,7 @@
         class="mt-auto"
       >
         {% csrf_token %}
-        <input type="hidden" name="product" value="{{ product.id }}" />
+        <input type="hidden" name="product_id" value="{{ product.id }}" />
         <button
           type="submit"
           class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
@@ -52,4 +52,4 @@
   {% endfor %}
 </div>
 
-{% endblock content %}
+{% endblock %}

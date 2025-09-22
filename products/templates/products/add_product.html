@@ -127,42 +127,4 @@
   </form>
 </div>
 
-<style>
-  input[type="text"],
-  input[type="number"],
-  select,
-  textarea {
-    border-radius: 0.5rem;
-    border: 1px solid #d1d5db;
-    padding: 0.5rem 1rem;
-    background-color: #f9fafb;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-    margin-top: 2px;
-    width: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-  input[type="number"] {
-    padding-left: 1.75rem;
-  }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
-    border-color: #eaba68; /* color3 */
-    box-shadow: 0 0 0 2px #855f30; /* color1 */
-    outline: none;
-  }
-</style>
-
 {% endblock content %}

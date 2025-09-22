@@ -160,6 +160,22 @@ Tip: Mantén cada sección en 1–4 bullets para legibilidad.
 
 ## Apéndice A: Guía Rápida de Comandos
 
+### Despliegue de archivos estáticos en producción
+
+- **Antes de subir a producción, ejecuta:**
+
+  ```bash
+  python manage.py collectstatic
+  ```
+
+  Esto recopila todos los archivos estáticos (CSS, JS, imágenes) en una sola carpeta lista para servir desde el servidor web.
+
+- **En `settings.py`, asegúrate de tener:**
+  ```python
+  STATIC_ROOT = "static"
+  ```
+  Así evitarás perder los estilos y archivos estáticos al desplegar tu proyecto en el servidor.
+
 ### Formateo de Código Python
 
 - **Formatear todo el código automáticamente con Black (recomendado antes de pasar a producción):**

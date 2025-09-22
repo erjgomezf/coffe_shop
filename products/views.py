@@ -1,7 +1,8 @@
 from django.views.generic import (
     FormView,
     ListView,
-)  # Vistas genéricas basadas en clases
+)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy  # Para redirecciones basadas en nombres de URL
 from rest_framework.views import APIView  # Vista base para APIs
 from rest_framework.response import Response  # Respuesta para APIs
@@ -34,7 +35,7 @@ class ProductFormView(FormView):
         return super().form_valid(form)
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     """
     Vista para listar productos.
     Muestra una lista de productos disponibles en la tienda.
@@ -48,7 +49,7 @@ class ProductListView(ListView):
 
     model = Product
     template_name = "products/list_products.html"
-    context_object_name = "products"
+    context_object_name = "product_list"
 
 
 class ProductListAPI(APIView):

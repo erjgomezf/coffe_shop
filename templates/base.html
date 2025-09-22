@@ -5,67 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>{% block title %}Mi Tienda de Café{% endblock %}</title>
-    <style>
-      :root {
-        --color1: #855f30; /* primario - café */
-        --color2: #9ec89a; /* acento suave verde */
-        --color3: #eaba68; /* acento dorado (botones) */
-        --color4: #ff5248; /* alerta/llamativo */
-        --color5: #f6ffb3; /* fondos suaves */
-      }
-
-      /* Textos amarillos -> primario café */
-      .text-yellow-700 {
-        color: var(--color1) !important;
-      }
-      .text-yellow-900 {
-        color: var(--color1) !important;
-      }
-      .text-yellow-800 {
-        color: var(--color1) !important;
-      }
-
-      /* Bordes amarillos claros -> fondo suave */
-      .border-yellow-100 {
-        border-color: var(--color5) !important;
-      }
-      .border-yellow-200 {
-        border-color: var(--color5) !important;
-      }
-
-      /* Fondos amarillos -> nueva paleta */
-      .bg-yellow-50 {
-        background-color: var(--color5) !important;
-      }
-      .bg-yellow-100 {
-        background-color: var(--color5) !important;
-      }
-      .bg-yellow-300 {
-        background-color: var(--color2) !important;
-      }
-      .bg-yellow-400 {
-        background-color: var(--color3) !important;
-      }
-
-      /* Hovers */
-      .hover\:bg-yellow-400:hover {
-        background-color: var(--color3) !important;
-      }
-      .hover\:bg-yellow-500:hover {
-        background-color: var(--color1) !important;
-      }
-
-      /* Rings de focus (Tailwind v4 usa --tw-ring-color) */
-      .focus\:ring-yellow-500:focus {
-        --tw-ring-color: var(--color1) !important;
-      }
-      .focus\:ring-yellow-600:focus {
-        --tw-ring-color: var(--color1) !important;
-      }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products/css/estilos.css' %}" />
   </head>
   <body class="bg-gray-50">
-    <header class="bg-white sticky top-0 z-40">
+    <header class="bg-white sticky top-0 z-40 shadow-md">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex-1 flex items-center gap-4">

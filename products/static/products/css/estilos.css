@@ -1,0 +1,161 @@
+:root {
+  --color1: #855f30; /* primario - café */
+  --color2: #9ec89a; /* acento suave verde */
+  --color3: #eaba68; /* acento dorado (botones) */
+  --color4: #ff5248; /* alerta/llamativo */
+  --color5: #f6ffb3; /* fondos suaves */
+  --text-color: #372912; /* Texto oscuro para fondos claros */
+}
+
+/* === PALETA GLOBAL === */
+
+/* Textos */
+.text-yellow-700,
+.text-yellow-800,
+.text-yellow-900 {
+  color: var(--color1) !important;
+}
+.text-yellow-600 {
+  color: var(--color3) !important;
+}
+.text-teal-600 {
+  color: var(--color1) !important;
+}
+
+/* Fondos */
+.bg-gray-50 {
+  background-color: var(--color5) !important;
+}
+.bg-gray-100 {
+  background-color: #f3f4f6; /* Mantener un gris neutro o cambiar a var(--color5) si se prefiere */
+}
+.bg-yellow-50,
+.bg-yellow-100 {
+  background-color: var(--color5) !important;
+}
+.bg-yellow-200 {
+  background-color: #fde68a; /* Un tono intermedio para hovers */
+}
+.bg-yellow-300 {
+  background-color: var(--color2) !important;
+}
+.bg-yellow-400 {
+  background-color: var(--color3) !important;
+}
+.bg-yellow-500 {
+  background-color: #d99b3a; /* Un dorado más oscuro para hover/active */
+}
+
+/* Hovers */
+.hover\:bg-yellow-200:hover {
+  background-color: #fde68a !important;
+}
+.hover\:bg-yellow-400:hover {
+  background-color: var(--color3) !important;
+}
+.hover\:bg-yellow-500:hover {
+  background-color: var(--color1) !important;
+  color: white !important;
+}
+
+/* Bordes */
+.border-yellow-100,
+.border-yellow-200 {
+  border-color: var(--color5) !important;
+}
+.border-yellow-300 {
+  border-color: var(--color3) !important;
+}
+
+/* Rings de focus (Tailwind v4 usa --tw-ring-color) */
+.focus\:ring-yellow-500:focus {
+  --tw-ring-color: var(--color1) !important;
+}
+.focus\:ring-yellow-600:focus {
+  --tw-ring-color: var(--color1) !important;
+}
+
+/* Alertas de mensajes de Django */
+.bg-green-50 {
+  background-color: #eefbf3 !important;
+}
+.text-green-800 {
+  color: #065f46 !important;
+}
+.border-green-200 {
+  border-color: #a7f3d0 !important;
+}
+
+.bg-red-50 {
+  background-color: #fef2f2 !important;
+}
+.text-red-800 {
+  color: #991b1b !important;
+}
+.border-red-200 {
+  border-color: #fecaca !important;
+}
+
+/* === ESTILOS DE FORMULARIO CENTRALIZADOS === */
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+  border-radius: 0.5rem !important;
+  border: 1px solid #d1d5db !important;
+  padding: 0.5rem 1rem !important;
+  background-color: #f9fafb !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+  margin-top: 2px !important;
+  width: 100% !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+/* Ajuste para input de número con símbolo de dólar */
+input[type="number"] {
+  padding-left: 1.75rem !important;
+}
+
+/* Estilos de foco para inputs */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color3) !important; /* color3 */
+  box-shadow: 0 0 0 2px var(--color1) !important; /* color1 */
+  outline: none !important;
+}
+
+/* Utilidad para ocultar visualmente pero mantener accesible */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+body {
+  background-color: var(--color5) !important;
+}
+
+/* Mejor separación entre menú y título principal */
+.catalog-title,
+h1.catalog-title {
+  margin-top: 2.5rem !important;
+  margin-bottom: 2rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+header {
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid #f3e9c7;
+  margin-bottom: 1.5rem !important;
+}
