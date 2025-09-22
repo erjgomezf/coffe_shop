@@ -5,7 +5,7 @@ from django.views import generic
 
 # Create your views here.
 class RegisterView(generic.CreateView):
-    '''
+    """
     Vista para registrar nuevos usuarios.
     Utiliza el formulario incorporado UserCreationForm de Django para manejar el registro de usuarios.
     Atributos:
@@ -14,7 +14,8 @@ class RegisterView(generic.CreateView):
         success_url: La URL a la que se redirige después de un registro exitoso
     Uso en URLconf:
         path('register/', RegisterView.as_view(), name='register')
-    '''
+    """
+
     form_class = UserCreationForm
     template_name = "users/register.html"
     success_url = reverse_lazy("login")

@@ -15,9 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path    # Importa la función path para definir rutas de URL
-from products.views import ProductListView, ProductFormView  # Importa las vistas de productos
-from products.views import ProductListAPI   # Importa la vista API para listar productos
+from django.urls import path  # Importa la función path para definir rutas de URL
+from products.views import (
+    ProductListView,
+    ProductFormView,
+)  # Importa las vistas de productos
+from products.views import ProductListAPI  # Importa la vista API para listar productos
 
 
 urlpatterns = [

@@ -160,6 +160,14 @@ Tip: Mantén cada sección en 1–4 bullets para legibilidad.
 
 ## Apéndice A: Guía Rápida de Comandos
 
+### Formateo de Código Python
+
+- **Formatear todo el código automáticamente con Black (recomendado antes de pasar a producción):**
+  ```bash
+  black .
+  ```
+  _Esto asegura un estilo uniforme y elimina errores de formato en todos los archivos Python del proyecto._
+
 _Esta sección es tu "chuleta" personal para memorizar y acceder rápidamente a los comandos más comunes._
 
 ### Entorno Virtual y Dependencias

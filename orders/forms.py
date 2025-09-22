@@ -1,8 +1,9 @@
 from django.forms import Form, ModelForm
 from .models import OrderProduct
 
+
 class OrderProductForm(ModelForm):
-    '''
+    """
     Formulario para agregar productos a una orden.
     Permite seleccionar un producto para agregar a la orden del usuario.
     Atributos:
@@ -15,9 +16,9 @@ class OrderProductForm(ModelForm):
         form.instance.order = order
         form.instance.quantity = 1
         form.save()
-    '''
+    """
+
     class Meta:
         model = OrderProduct
-        fields = ['product']
+        fields = ["product"]
         # You can add widgets and validation logic here as needed
-    

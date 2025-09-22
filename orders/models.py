@@ -19,7 +19,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     order_date = models.DateTimeField(auto_now_add=True)
-    
+
     def get_total(self):
         total = 0
         for order_product in self.orderproduct_set.all():
@@ -28,8 +28,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} by {self.user}"
-    
-    
 
 
 class OrderProduct(models.Model):

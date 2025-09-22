@@ -7,19 +7,52 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Nombre del Producto')),
-                ('description', models.TextField(verbose_name='Descripción del Producto')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Precio del Producto')),
-                ('stock', models.IntegerField(verbose_name='Cantidad en Stock del Producto')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='logos', verbose_name='Imagen del Producto')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=100, verbose_name="Nombre del Producto"
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(verbose_name="Descripción del Producto"),
+                ),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2,
+                        max_digits=10,
+                        verbose_name="Precio del Producto",
+                    ),
+                ),
+                (
+                    "stock",
+                    models.IntegerField(verbose_name="Cantidad en Stock del Producto"),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="logos",
+                        verbose_name="Imagen del Producto",
+                    ),
+                ),
             ],
         ),
     ]

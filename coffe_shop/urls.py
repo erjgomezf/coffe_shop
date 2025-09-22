@@ -21,8 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path("", include("products.urls")),  # Incluir las URLs de la app products
     path("admin/", admin.site.urls),
-    path("productos/", include("products.urls")),  # Incluir las URLs de la app products
     path("usuarios/", include("users.urls")),  # Incluir las URLs de la app users
     path("orders/", include("orders.urls")),  # Incluir las URLs de la app orders
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Servir archivos multimedia en desarrollo
+] + static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)  # Servir archivos multimedia en desarrollo

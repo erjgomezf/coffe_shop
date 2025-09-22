@@ -1,21 +1,28 @@
-from django.views.generic import DetailView, CreateView # Vistas genéricas basadas en clases
-from django.contrib.auth.mixins import LoginRequiredMixin   # Asegura que el usuario esté autenticado
-from django.urls import reverse_lazy    # Para redirecciones basadas en nombres de URL
-from django.shortcuts import redirect   # Para redirecciones
-from django.contrib import messages # Para mensajes flash
-from django.db import transaction   # Para manejar transacciones atómicas
-from rest_framework.views import APIView    # Vista base para APIs
-from rest_framework.response import Response    # Respuesta para APIs
-from .models import Order, OrderProduct # Modelos de Orden y Producto en la Orden
-from .forms import OrderProductForm # Formulario para agregar productos a la orden
-from products.models import Product # Modelo de Producto
-from .serializers import OrderSerializer, OrderProductSerializer  # Serializadores para los modelos Order y OrderProduct
-
+from django.views.generic import (
+    DetailView,
+    CreateView,
+)  # Vistas genéricas basadas en clases
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+)  # Asegura que el usuario esté autenticado
+from django.urls import reverse_lazy  # Para redirecciones basadas en nombres de URL
+from django.shortcuts import redirect  # Para redirecciones
+from django.contrib import messages  # Para mensajes flash
+from django.db import transaction  # Para manejar transacciones atómicas
+from rest_framework.views import APIView  # Vista base para APIs
+from rest_framework.response import Response  # Respuesta para APIs
+from .models import Order, OrderProduct  # Modelos de Orden y Producto en la Orden
+from .forms import OrderProductForm  # Formulario para agregar productos a la orden
+from products.models import Product  # Modelo de Producto
+from .serializers import (
+    OrderSerializer,
+    OrderProductSerializer,
+)  # Serializadores para los modelos Order y OrderProduct
 
 
 # Create your views here.
 class MyOrderView(LoginRequiredMixin, DetailView):
-    '''
+    """
     Vista para mostrar el pedido actual del usuario.
     Muestra los detalles del pedido activo asociado al usuario autenticado.
     Atributos:
@@ -23,10 +30,10 @@ class MyOrderView(LoginRequiredMixin, DetailView):
         template_name: La plantilla HTML utilizada para renderizar la vista.
         context_object_name: El nombre del contexto para acceder al pedido en la plantilla.
     Método:
-        get_object: Sobrescribe el método para obtener el pedido activo del usuario actual. 
+        get_object: Sobrescribe el método para obtener el pedido activo del usuario actual.
     Uso en URLconf:
         path('my-order/', MyOrderView.as_view(), name='my_order')
-    '''
+    """
 
     model = Order
     template_name = "orders/my_order.html"
@@ -37,8 +44,9 @@ class MyOrderView(LoginRequiredMixin, DetailView):
             is_active=True, user=self.request.user
         ).first()  # Simula obtener el pedido del usuario actual
 
+
 class CreateOrderProductView(LoginRequiredMixin, CreateView):
-    '''
+    """
     Vista para agregar un producto a la orden del usuario.
     Permite a los usuarios autenticados agregar productos a su orden activa.
     Atributos:
@@ -49,32 +57,34 @@ class CreateOrderProductView(LoginRequiredMixin, CreateView):
         form_valid: Sobrescribe el método para manejar la lógica de agregar el producto a la orden.
     Uso en URLconf:
         path('add-to-order/', CreateOrderProductView.as_view(), name='add_to_order')
-    '''
+    """
+
     template_name = "orders/create_order_product.html"
     form_class = OrderProductForm
     success_url = reverse_lazy("my_order")
 
-    @transaction.atomic # Asegura que todas las operaciones de la base de datos sean atómicas    
+    @transaction.atomic  # Asegura que todas las operaciones de la base de datos sean atómicas
     def form_valid(self, form) -> redirect:
-        '''
+        """
         Maneja la lógica de agregar un producto a la orden.
         Si el formulario es válido, obtiene o crea el pedido activo del usuario,
         asigna el pedido y la cantidad al producto del formulario, guarda el producto
-        en la orden, muestra un mensaje de éxito y redirige a la vista del pedido.  
+        en la orden, muestra un mensaje de éxito y redirige a la vista del pedido.
         Parámetros:
             form: El formulario que ha sido validado.
         Retorna:
             La respuesta de la superclase form_valid, que maneja la redirección.
-        '''
+        """
         order, _ = Order.objects.get_or_create(is_active=True, user=self.request.user)
         form.instance.order = order
         form.instance.quantity = 1
         form.save()
         messages.success(self.request, "Producto agregado a la orden.")
         return super().form_valid(form)
-    
+
+
 class OrderProductAPI(APIView):
-    '''
+    """
     API para agregar un producto a la orden del usuario.
     Proporciona una API RESTful para que los usuarios autenticados agreguen productos a su orden activa.
     Atributos:
@@ -84,7 +94,8 @@ class OrderProductAPI(APIView):
         post: Maneja la solicitud POST para agregar un producto a la orden.
     Uso en URLconf:
         path('api/add-to-order/', OrderProductAPI.as_view(), name='add_to_order_api')
-    '''
+    """
+
     authentication_classes = []
     permission_classes = []
 
