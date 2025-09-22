@@ -5,6 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>{% block title %}Mi Tienda de Café{% endblock %}</title>
+    <style>
+      :root {
+        --color1: #855f30; /* primario - café */
+        --color2: #9ec89a; /* acento suave verde */
+        --color3: #eaba68; /* acento dorado (botones) */
+        --color4: #ff5248; /* alerta/llamativo */
+        --color5: #f6ffb3; /* fondos suaves */
+      }
+
+      /* Textos amarillos -> primario café */
+      .text-yellow-600,
+      .text-yellow-700,
+      .text-yellow-800,
+      .text-yellow-900 {
+        color: var(--color1) !important;
+      }
+
+      /* Bordes amarillos claros -> fondo suave */
+      .border-yellow-100,
+      .border-yellow-200,
+      .border-yellow-300 {
+        border-color: var(--color5) !important;
+      }
+
+      /* Fondos amarillos -> nueva paleta */
+      .bg-yellow-50,
+      .bg-yellow-100 {
+        background-color: var(--color5) !important;
+      }
+      .bg-yellow-200,
+      .bg-yellow-300 {
+        background-color: var(--color2) !important;
+      }
+      .bg-yellow-400,
+      .bg-yellow-500,
+      .bg-yellow-600 {
+        background-color: var(--color3) !important;
+      }
+
+      /* Hovers */
+      .hover\:bg-yellow-200:hover,
+      .hover\:bg-yellow-300:hover {
+        background-color: var(--color2) !important;
+      }
+      .hover\:bg-yellow-400:hover,
+      .hover\:bg-yellow-500:hover {
+        background-color: var(--color3) !important;
+      }
+
+      /* Rings de focus (Tailwind v4 usa --tw-ring-color) */
+      .focus\:ring-yellow-500:focus {
+        --tw-ring-color: var(--color1) !important;
+      }
+      .focus\:ring-yellow-600:focus {
+        --tw-ring-color: var(--color1) !important;
+      }
+      .focus\:ring-yellow-200:focus {
+        --tw-ring-color: var(--color1) !important;
+      }
+
+      /* Focus border helper */
+      .focus\:border-yellow-500:focus {
+        border-color: var(--color3) !important;
+      }
+
+      /* Yellow border variants */
+      .border-yellow-400 {
+        border-color: var(--color3) !important;
+      }
+
+      /* Alertas usando paleta */
+      .alert {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        border: 1px solid transparent;
+        font-size: 0.95rem;
+      }
+      .alert-success {
+        background-color: rgba(158, 200, 154, 0.15);
+        color: #3d5a3a;
+        border-color: var(--color2);
+      }
+      .alert-error {
+        background-color: rgba(255, 82, 72, 0.12);
+        color: #7a1c18;
+        border-color: var(--color4);
+      }
+      .alert-warning {
+        background-color: rgba(234, 186, 104, 0.15);
+        color: #66461d;
+        border-color: var(--color3);
+      }
+    </style>
   </head>
   <body class="bg-gray-50">
     <header class="bg-white sticky top-0 z-40">
@@ -132,7 +226,7 @@
       <div class="mt-4 space-y-2">
         {% for message in messages %}
         <div
-          class="px-4 py-3 rounded-lg shadow text-sm {% if message.tags == 'success' %} bg-green-50 text-green-800 border border-green-200 {% elif message.tags == 'error' %} bg-red-50 text-red-800 border border-red-200 {% else %} bg-yellow-50 text-yellow-800 border border-yellow-200 {% endif %}"
+          class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-warning{% endif %}"
         >
           {{ message }}
         </div>
